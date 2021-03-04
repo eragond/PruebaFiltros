@@ -12,5 +12,19 @@ window.onload = function() {
     ctx.drawImage(img,0,0);
 
     var imgData = ctx.getImageData(0, 0, canv.width, canv.height);
-    // console.log(imgData);
-};
+    var data = imgData.data;
+
+    grayscale();
+
+    function grayscale() {
+      for (var i = 0; i < data.length; i += 4) {
+        var avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+        data[i]     = avg; // red
+        data[i + 1] = avg; // green
+        data[i + 2] = avg; // blue
+      }
+      ctx.putImageData(imgData, 0, 0);
+    }
+
+
+}
