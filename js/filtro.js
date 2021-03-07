@@ -12,9 +12,9 @@ window.onload = function() {
 
     //Inicializar todas las variables.
     nCanvas = document.createElement('canvas'); //Objeto natural para procesado.
-    nCtx = nCanvas.getContext("2d"); //Contexto de canvas natural.
-    img = $("#imgOrig")[0]; //Imagen original.
-    procImg = $("#imgProc")[0]; //Imagen original.
+    nCtx = nCanvas.getContext("2d");            //Contexto de canvas natural.
+    img = $("#imgOrig")[0];                     //Imagen original.
+    procImg = $("#imgProc")[0];                 //Imagen para procesar.
 
     guardaImagenADescargar(false);
 
