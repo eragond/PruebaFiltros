@@ -1,12 +1,9 @@
 
 // Variables globales
-var canvas;                 //Canvas para dibujado.
 var nCanvas;                //Canvas con imagen natural, para procesado.
-var ctx;                    //Contexto de canvas para dibujado.
 var nCtx;                   //Contexto de canvas natural.
 var img;                    //Imagen original.
-var procImg = new Image;    //Imagen para procesar.
-
+var procImg;                //Imagen para procesar.
 
 //Esto se ejecutara, una vez que la pagina haya cargado.
 window.onload = function() {
@@ -14,11 +11,10 @@ window.onload = function() {
     console.log("Listo");
 
     //Inicializar todas las variables.
-    canvas = $("#canv")[0]; //Objeto en la pagina.
     nCanvas = document.createElement('canvas'); //Objeto natural para procesado.
-    ctx = canvas.getContext("2d"); //Contexto de canvas para pagina.
     nCtx = nCanvas.getContext("2d"); //Contexto de canvas natural.
-    img = $("#imagen")[0]; //Imagen original.
+    img = $("#imgOrig")[0]; //Imagen original.
+    procImg = $("#imgProc")[0]; //Imagen original.
 
     //Creamos una copia de la imagen en procImg.
     nCanvas.width = img.naturalWidth;
@@ -26,29 +22,14 @@ window.onload = function() {
     nCtx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
     guardaImagenADescargar();
 
-    //Carga el preview del canvas de dibujado.
-    cargaPreviewCanvas();
-
     //Cargar tooltips
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle-second="tooltip"]').tooltip();
 }
 
 // EVENTOS
-// Cambiar tamaño de canvas cuando se actualiza el tamaño de imagen.
-$(window).on("resize", () => {
-    cargaPreviewCanvas();
-});
 
-$("#wrapper").on(
-    "toggledImage", () => {
-    setTimeout(() => {
-    cargaPreviewCanvas();
-},350);
-});
-
-$("#procesame").click(() => {
-    // console.log("Hola");
+$("#procesame").on("click", () => {
     cargaCanvas();
 });
 
@@ -59,16 +40,7 @@ $("#fileUpload").change(readImage);
  function guardaImagenADescargar(redibuja = true) {
     if (redibuja)
         procImg.src = nCanvas.toDataURL("image/png");
-    // ctx.drawImage(procImg, 0, 0, procImg.naturalWidth, procImg.naturalHeight);
-    // $("#bajarImagen").attr("download", "img.png");
     $("#bajarImagen").attr("href", procImg.src);
-}
-
-// Dibuja el preview con el canvas para preview y la imagen generada.
-function cargaPreviewCanvas() {
-    canvas.width = img.width;
-    canvas.height = img.width;
-    ctx.drawImage(procImg, 0, 0, procImg.naturalWidth, procImg.naturalHeight, 0, 0, canvas.width, canvas.height);
 }
 
 // Lee una imagen y la guarda.
@@ -80,7 +52,6 @@ function readImage() {
     img.src = evt.target.result;
     procImg.src = evt.target.result;
     img.addEventListener("load", () => {
-        cargaPreviewCanvas();
         guardaImagenADescargar(false);
     });
   });
