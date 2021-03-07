@@ -16,11 +16,7 @@ window.onload = function() {
     img = $("#imgOrig")[0]; //Imagen original.
     procImg = $("#imgProc")[0]; //Imagen original.
 
-    //Creamos una copia de la imagen en procImg.
-    nCanvas.width = img.naturalWidth;
-    nCanvas.height = img.naturalHeight;
-    nCtx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
-    guardaImagenADescargar();
+    guardaImagenADescargar(false);
 
     //Cargar tooltips
     $('[data-toggle="tooltip"]').tooltip();
@@ -66,7 +62,6 @@ function cargaCanvas() {
     grayscale(imgData.data);
     nCtx.putImageData(imgData, 0, 0);
     guardaImagenADescargar();
-    cargaPreviewCanvas();
 }
 
 function grayscale(data) {
