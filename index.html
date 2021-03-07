@@ -51,8 +51,12 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <button id="subirImagen" class="nav-link btn" data-toggle="tooltip" data-placement="bottom" title="Sube tu imagen">Subir <span class="sr-only">(current)</span></button>
+            </li> -->
+            <li class="nav-item">
+               <input type='file' id="fileUpload" hidden name="fileUploader"/>
+               <label for="fileUpload" class="nav-link btn" data-toggle="tooltip" data-placement="bottom" title="Sube tu imagen">Subir</label>
             </li>
             <li class="nav-item">
               <button id="bajarImagen" class="nav-link btn" data-toggle="tooltip" data-placement="bottom" title="Baja tu imagen">Bajar </button>

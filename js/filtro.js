@@ -19,6 +19,7 @@ window.onload = function() {
     $('[data-toggle-second="tooltip"]').tooltip();
 }
 
+// EVENTOS
 // Cambiar tamaño de canvas cuando se actualiza el tamaño de imagen.
 $(window).on("resize", () => {
     loadCanvasImage();
@@ -31,15 +32,16 @@ $("#wrapper").on(
 },350);
 });
 
-$("#subirImagen").click(() => {
-    console.log("Me picaste");
-});
+// Subir imagen
+$("#fileUpload").change(readImage);
+
+
 
 function loadCanvasImage() {
     canv.width = img.width;
     canv.height = img.height;
     var scale = 1;
-    // Escala
+    // Escala POR SI SE OCUPA
     // var scale = Math.max(canv.width / img.width, canv.height / img.height);
     // Superior izquierda.
     // var x = (canv.width / 2) - (img.width / 2) * scale;
@@ -52,22 +54,13 @@ function readImage() {
 
   const FR = new FileReader();
   FR.addEventListener("load", (evt) => {
-    const img = new Image();
     img.addEventListener("load", () => {
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      canv.width = img.width;
-      canv.height = img.height;
-      ctx.drawImage(img, 0, 0);
+      loadCanvasImage();
     });
     img.src = evt.target.result;
-    $("#imagen").attr("src", evt.target.result);
   });
   FR.readAsDataURL(this.files[0]);
 }
-
-// EL("#fileUpload").addEventListener("change", readImage);
-//
-// EL("#actua").addEventListener("click", cargaCanvas);
 
 function cargaCanvas() {
     // canv = document.getElementById("canv");
@@ -95,3 +88,16 @@ function cargaCanvas() {
     ctx.putImageData(imgData, 0, 0);
     }
 }
+
+// grayscale = function(ctx) {
+//     var imgData = ctx.getImageData(0, 0, canv.width, canv.height);
+//     var data = imgData.data;
+//     for (var i = 0; i < data.length; i += 4) {
+//       var avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+//       data[i]     = avg; // red
+//       data[i + 1] = avg; // green
+//       data[i + 2] = avg; // blue
+//     }
+//   ctx.putImageData(imgData, 0, 0);
+//   }
+// }
