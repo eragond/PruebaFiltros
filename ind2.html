@@ -14,3 +14,93 @@
     </body>
     <script src="filtro.js" charset="utf-8"></script>
 </html>
+
+
+
+<!-- var canvas = null;
+var ctx = null;
+var img = null;
+var nCanvas = null;
+var nCtx = null;
+var nImg;
+
+
+window.onload = function() {
+    //Indicar que cargó.
+    console.log("Listo");
+
+    //Cargar canvas e imagen.
+    canvas = $("#canv")[0]; //Objeto en la pagina.
+    ctx = canvas.getContext("2d");
+    nCanvas = canvas.getContext("2d");
+    img = $("#imagen")[0];
+    loadCanvasImage();
+
+    //Cargar tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle-second="tooltip"]').tooltip();
+}
+
+// EVENTOS
+// Cambiar tamaño de canvas cuando se actualiza el tamaño de imagen.
+$(window).on("resize", () => {
+    loadCanvasImage();
+});
+
+$("#wrapper").on(
+    "toggledImage", () => {
+    setTimeout(() => {
+    loadCanvasImage();
+},350);
+});
+
+// Subir imagen
+$("#fileUpload").change(readImage);
+
+
+function loadCanvasImage() {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    // canvas.width = img.naturalWidth;
+    // canvas.height = img.naturalHeight;
+    var scale = 1;
+    // Escala POR SI SE OCUPA
+    // var scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+    // Superior izquierda.
+    // var x = (canvas.width / 2) - (img.width / 2) * scale;
+    // var y = (canvas.height / 2) - (img.height / 2) * scale;
+    ctx.drawImage(img, 0, 0, img.width * scale, img.height * scale);
+    // ctx.drawImage(img, 0, 0, img.naturalWidth * scale, img.naturalHeight * scale);
+}
+
+// function reloa
+
+function readImage() {
+  if (!this.files || !this.files[0]) return;
+
+  const FR = new FileReader();
+  FR.addEventListener("load", (evt) => {
+    img.src = evt.target.result;
+    img.addEventListener("load", () => {
+        loadCanvasImage();
+    });
+  });
+  FR.readAsDataURL(this.files[0]);
+}
+
+function cargaCanvas() {
+    var imgData = ctx.getImageData(0, 0, img.width, img.height);
+    data = grayscale(imgData.data);
+    ctx.putImageData(imgData, 0, 0);
+    // loadCanvasImage();
+}
+
+function grayscale(data) {
+  for (var i = 0; i < data.length; i += 4) {
+    var avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+    data[i]     = avg; // red
+    data[i + 1] = avg; // green
+    data[i + 2] = avg; // blue
+  }
+  console.log(data.length / 4);
+} -->
