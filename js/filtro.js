@@ -97,11 +97,3 @@ export class GrisAzul extends Filtro {
         data[i+1] = gris;
     }
 }
-
-// Gray = ( Max(Red, Green, Blue) + Min(Red, Green, Blue) ) / 2
-// (división entera)
-// 5. Gray = Max(Red, Green, Blue)
-// 6. Gray = Min(Red, Green, Blue)
-// 7. Gray = Red
-// 8. Gray = Green
-// 9. Gray = Blue
