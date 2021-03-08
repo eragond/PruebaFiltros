@@ -97,3 +97,15 @@ export class GrisAzul extends Filtro {
         data[i+1] = gris;
     }
 }
+
+export class Mosaico extends Filtro {
+    procesa(data) {
+        let width = prompt("Ancho");
+        let height = prompt("Alto");
+    }
+    procPixel(data, i){
+        var gris = data[i+2];
+        data[i] = gris;
+        data[i+1] = gris;
+    }
+}
