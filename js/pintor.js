@@ -9,9 +9,19 @@ export default class Pintor {
         this.canvas = document.createElement('canvas'); //Creamos un canvas y su contexto.
         this.ctx = this.canvas.getContext("2d");
         this.img = img;                                 //Guardamos la imagen.
+        this.oImg = new Image();
+        this.oImg.src = img.src;
+        this.superpon = false;
+    }
+
+    updateImgSrc(imgSrc) {
+        this.img.src = imgSrc;
+        this.oImg.src = this.img.src;
     }
 
     pinta(filtro) {
+        if(!this.superpon)
+            this.img.src = this.oImg.src;
         this.canvas.width = this.img.naturalWidth;
         this.canvas.height = this.img.naturalHeight;
         this.ctx.drawImage(this.img, 0, 0, this.img.naturalWidth, this.img.naturalHeight);

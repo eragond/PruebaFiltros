@@ -18,11 +18,6 @@ window.onload = function() {
 // Subir imagen
 $("#fileUpload").change(readImage);
 
-$("#resetImagen").click(() => {
-    procImg.src = img.src;
-    guardaImagenADescargar();
-});
-
 // Guarda lo que esta en el canvas natural y lo deja disponible para descargar.
  function guardaImagenADescargar() {
     $("#bajarImagen").attr("href", pintor.img.src);
@@ -36,7 +31,7 @@ function readImage() {
   const FR = new FileReader();
   FR.addEventListener("load", (evt) => {
     img.src = evt.target.result;
-    pintor.img.src = evt.target.result;
+    pintor.updateImgSrc(evt.target.result);
     img.addEventListener("load", () => {
         guardaImagenADescargar();
     });
