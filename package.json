@@ -1,0 +1,23 @@
+{
+  "name": "pruebafiltros",
+  "version": "1.0.0",
+  "description": "",
+  "main": "serv.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "package-lock.json": "^1.0.0"
+  },
+  "scripts": {
+    "test": "node serv.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eragond/PruebaFiltros.git"
+  },
+  "author": "eragond",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eragond/PruebaFiltros/issues"
+  },
+  "homepage": "https://github.com/eragond/PruebaFiltros#readme"
+}
