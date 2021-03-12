@@ -4,14 +4,14 @@ export default class Pintor {
     constructor(img) {
         this.nombre = "Carlos"                      //El pintor merece identidad.
         this.listaFiltros = {}                      //Creamos la lista de filtros.
-        for (let clase in filtros)                  //Llenamos la lista de filtros.
-            this.listaFiltros[clase] = new filtros[clase]();
         this.canvas = document.createElement('canvas'); //Creamos un canvas y su contexto.
         this.ctx = this.canvas.getContext("2d");
         this.img = img;                                 //Guardamos la imagen.
         this.oImg = new Image();
         this.oImg.src = img.src;
         this.superpon = false;
+        for (let clase in filtros)                  //Llenamos la lista de filtros.
+            this.listaFiltros[clase] = new filtros[clase]();
     }
 
     updateImgSrc(imgSrc) {
@@ -27,6 +27,7 @@ export default class Pintor {
         this.ctx.drawImage(tempImg, 0, 0, this.img.naturalWidth, this.img.naturalHeight);
         let imgData = this.ctx.getImageData(0, 0, this.img.naturalWidth, this.img.naturalWidth);
         // let ini = performance.now()
+        this.listaFiltros[filtro].setWidthHeight(this.img.naturalWidth, this.img.naturalHeight);
         this.listaFiltros[filtro].procesa(imgData.data);
         // let fin = performance.now()
         // console.log("Perfomance global " + (fin - ini));
