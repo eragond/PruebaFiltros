@@ -8,9 +8,15 @@ class Filtro {
         this.imgHeight = height;
     }
 
+
     procesa(data) {
         for (var i = 0; i < data.length; i += 4)
           this.procPixel(data, i);
+
+        // Otro recorrido
+        // for (let j = 0; j < this.imgHeight; j++)
+        //      for (let i = 0; i < this.imgWidth; i++)
+        //          this.procPixel(data, (i + j*this.imgWidth)*4);
     }
 
     procPixel(data, i){
