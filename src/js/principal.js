@@ -1,5 +1,4 @@
 import Pintor from "./pintor.js"
-// import * as filtros from "./filtro.js"
 
 var pintor;                 //Pintor a usar
 var img;                    //Imagen original.

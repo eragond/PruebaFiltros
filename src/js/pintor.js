@@ -26,11 +26,8 @@ export default class Pintor {
         this.canvas.height = this.img.naturalHeight;
         this.ctx.drawImage(tempImg, 0, 0, this.img.naturalWidth, this.img.naturalHeight);
         let imgData = this.ctx.getImageData(0, 0, this.img.naturalWidth, this.img.naturalWidth);
-        // let ini = performance.now()
         this.listaFiltros[filtro].setWidthHeight(this.img.naturalWidth, this.img.naturalHeight);
         this.listaFiltros[filtro].procesa(imgData.data);
-        // let fin = performance.now()
-        // console.log("Perfomance global " + (fin - ini));
         this.ctx.putImageData(imgData, 0, 0);
         this.salvaImagen();
     }
