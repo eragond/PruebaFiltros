@@ -35,7 +35,7 @@ $ npm test
 ```
 Este se ejecuta por defecto en el puerto 3000.
 
-Usted debe ser capaz de visualizar el proyecto en su navegador, en la [direccion local en el puerto 3000](localhost:3000).
+Usted debe ser capaz de visualizar el proyecto en su navegador, en la [direccion local en el puerto 3000](localhost:3000) -> localhost:3000.
 
 ---
 
