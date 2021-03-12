@@ -1,8 +1,8 @@
 # Filtros
-#### Tarea de Proceso Digital de Imagenes
+### Tarea de Proceso Digital de Imagenes
 Cruz Torres Francisco Daniel - 316194099
 
-##### Para ver los filtros **en vivo**, visite la [pagina del repo.](https://eragond.github.io/PruebaFiltros/)
+#### Para ver los filtros **en vivo**, visite la [pagina del repo.](https://eragond.github.io/PruebaFiltros/)
 
 ## Instalacion
 Si se desea correr el proyecto de manera local, se necesita:
@@ -14,8 +14,8 @@ Si se desea correr el proyecto de manera local, se necesita:
     - Node - Express
 
 Los archivos del repositorio cuentan con un pequeño servidor estatico de express llamado `serv.js` para poder visualizar los archivos.
-Para esto es necesario [instalar node.js](https://nodejs.org/es/download/).
-Y su gestor de paquetes [npm](https://www.npmjs.com/).
+
+Para esto es necesario [instalar node.js](https://nodejs.org/es/download/) y su gestor de paquetes [npm](https://www.npmjs.com/).
 
 #### Guia para iniciar el servidor
 
