@@ -1,8 +1,7 @@
 
 class Filtro {
-    constructor(imgw, imgh) {
-        this.nombre = "Vacio";
-    }
+    nombre = "";
+    info = "";
 
     setWidthHeight(width, height){
         this.imgWidth = width;
@@ -29,6 +28,8 @@ class Filtro {
 }
 
 export class GrisPromedio extends Filtro {
+    nombre = "Gris promedio";
+    info = "Obtiene el gris promedio \nGy = (R + G + B)/3";
     procPixel(data, i){
         var gris = (data[i] + data[i + 1] + data[i + 2]) / 3;
         data[i] = gris;
@@ -38,8 +39,10 @@ export class GrisPromedio extends Filtro {
 }
 
 export class GrisOjo extends Filtro {
+    nombre = "Gris ojo";
+    info = "Gy = 0.3 R + 0.59 G + 0.11 B";
     procPixel(data, i){
-        var gris = (data[i] * 0.3 + data[i + 1] * 0.59 + data[i + 2] * 0.11) / 3;
+        var gris = data[i] * 0.3 + data[i + 1] * 0.59 + data[i + 2] * 0.11;
         data[i] = gris;
         data[i+1] = gris;
         data[i+2] = gris;
@@ -47,8 +50,10 @@ export class GrisOjo extends Filtro {
 }
 
 export class GrisLuma extends Filtro {
+    nombre = "Gris luma";
+    info = "Gy = 0.2126 R + 0.7152 G + 0.0722 B";
     procPixel(data, i){
-        var gris = (data[i] * 0.2126 + data[i + 1] * 0.7152 + data[i + 2] * 0.0722) / 3;
+        var gris = data[i] * 0.2126 + data[i + 1] * 0.7152 + data[i + 2] * 0.0722;
         data[i] = gris;
         data[i+1] = gris;
         data[i+2] = gris;
@@ -56,6 +61,8 @@ export class GrisLuma extends Filtro {
 }
 
 export class GrisMinMax extends Filtro {
+    nombre = "Gris min-max";
+    info = "Gy = (Min(R,G,B) + Max(R,G,B)) / 2";
     procPixel(data, i){
         var gris = (Math.max(data[i], data[i + 1], data[i + 2]) +
                     Math.min(data[i], data[i + 1], data[i + 2])) / 2;
@@ -66,6 +73,8 @@ export class GrisMinMax extends Filtro {
 }
 
 export class GrisMax extends Filtro {
+    nombre = "Gris max";
+    info = "Gy = Max(R,G,B)";
     procPixel(data, i){
         var gris = Math.max(data[i], data[i + 1], data[i + 2]);
         data[i] = gris;
@@ -75,6 +84,8 @@ export class GrisMax extends Filtro {
 }
 
 export class GrisMin extends Filtro {
+    nombre = "Gris min";
+    info = "Gy = Min(R,G,B)";
     procPixel(data, i){
         var gris = Math.min(data[i], data[i + 1], data[i + 2]);
         data[i] = gris;
@@ -84,6 +95,8 @@ export class GrisMin extends Filtro {
 }
 
 export class GrisRojo extends Filtro {
+    nombre = "Gris rojo";
+    info = "Gy = R";
     procPixel(data, i){
         var gris = data[i];
         data[i+1] = gris;
@@ -92,6 +105,8 @@ export class GrisRojo extends Filtro {
 }
 
 export class GrisVerde extends Filtro {
+    nombre = "Gris verde";
+    info = "Gy = G";
     procPixel(data, i){
         var gris = data[i+1];
         data[i] = gris;
@@ -100,6 +115,8 @@ export class GrisVerde extends Filtro {
 }
 
 export class GrisAzul extends Filtro {
+    nombre = "Gris azul";
+    info = "Gy = B";
     procPixel(data, i){
         var gris = data[i+2];
         data[i] = gris;
@@ -108,7 +125,8 @@ export class GrisAzul extends Filtro {
 }
 
 export class Mosaico extends Filtro {
-
+    nombre = "Mosaico";
+    info = "Cuadricula la imagen en secciones del tamaño indicado";
     procesa(data) {
         //Obtener informacion sobre las dimensiones del mosaico.
         let width, height;
@@ -118,17 +136,12 @@ export class Mosaico extends Filtro {
             height = prompt("Escribe un alto valido", 10);
         width = Math.abs(parseInt(width));
         height = Math.abs(parseInt(height));
-        console.log(width);
-        console.log(height);
 
         // Procesamiento, recorremos secciones del tamaño indicado.
         if (!isNaN(width) && !isNaN(height))
             for (let y = 0; y < this.imgHeight; y += height)
                 for (let x = 0; x < this.imgWidth; x += width)
                     this.mosaicoSeccion(data, x, y, width, height);
-
-        console.log("termin");
-
     }
 
     //Obtiene el color promedio de una seccion y lo aplica a cada pixel en esta.
@@ -161,6 +174,8 @@ export class Mosaico extends Filtro {
 }
 
 export class Brillo extends Filtro {
+    nombre = "Brillo";
+    info = "Suma una constante [-255,255] a cada pixel \n(R,G,B) -> (R+c,G+c,B+c)";
     constructor(){
         super();
         this.cte = 0;

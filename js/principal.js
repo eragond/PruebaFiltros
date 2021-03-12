@@ -44,11 +44,11 @@ function creaListaFiltros(){
     let l = pintor.getListaFiltros();
     for (let fil of l) {
         let elemento = document.createElement('button');
-        // elemento.id = fil;
         elemento.setAttribute("class","list-group-item list-group-item-action bg-default");
-        elemento.append(fil)
+        elemento.setAttribute("title",fil.info);
+        elemento.append(fil.nom)
         elemento.onclick = () => {
-            pintor.pinta(fil);
+            pintor.pinta(fil.fnom);
             guardaImagenADescargar();
         };
         $("#listaFiltros").append(elemento);
