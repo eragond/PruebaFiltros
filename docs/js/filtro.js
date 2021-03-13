@@ -118,6 +118,33 @@ export class GrisAzul extends Filtro {
     }
 }
 
+export class Enverdecer extends Filtro {
+    nombre = "Enverdecer";
+    info = "Solo mantiene la componente verde";
+    procPixel(data, i){
+        data[i] = 0;
+        data[i+2] = 0;
+    }
+}
+
+export class Azulecer extends Filtro {
+    nombre = "Azulecer";
+    info = "Solo mantiene la componente azul";
+    procPixel(data, i){
+        data[i] = 0;
+        data[i+1] = 0;
+    }
+}
+
+export class Enrojecer extends Filtro {
+    nombre = "Enrojecer";
+    info = "Solo mantiene la componente roja";
+    procPixel(data, i){
+        data[i+1] = 0;
+        data[i+2] = 0;
+    }
+}
+
 export class AltoContraste extends Filtro {
     nombre = "Alto Contraste";
     info = "Blanco y negro al extremo";
