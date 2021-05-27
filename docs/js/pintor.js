@@ -14,16 +14,18 @@ export default class Pintor {
             this.listaFiltros[clase] = new filtros[clase]();
     }
 
+    //Actualiza la imagen con la que trabaja el pintor.
     updateImgSrc(imgSrc) {
         this.img.src = imgSrc;
         this.oImg.src = this.img.src;
     }
 
+    //Dependiendo del filtro, lo aplica a la imagen.
     pinta(filtro) {
         let tempImg = new Image();
         tempImg.src = this.superpon ? this.img.src : this.oImg.src
-        // this.canvas.width = this.img.naturalWidth;
-        // this.canvas.height = this.img.naturalHeight;
+        this.canvas.width = this.img.naturalWidth;
+        this.canvas.height = this.img.naturalHeight;
         this.ctx.drawImage(tempImg, 0, 0);
         // this.ctx.drawImage(tempImg, 0, 0, this.img.naturalWidth, this.img.naturalHeight);
         let imgData = this.ctx.getImageData(0, 0, this.img.naturalWidth, this.img.naturalWidth);
@@ -36,17 +38,19 @@ export default class Pintor {
         this.salvaImagen();
     }
 
+    //Guarda una imagen.
     salvaImagen(){
         this.img.src = this.canvas.toDataURL("image/png");
     }
 
+    //Regresa la lista de los filtros con los que cuenta el pintor.
     getListaFiltros(){
         var lista = [];
         for (let d in this.listaFiltros)
             lista.push({'fnom':d ,
                         'nom': this.listaFiltros[d].nombre,
-                        'info': this.listaFiltros[d].info}
-                      );
+                        'info': this.listaFiltros[d].info
+                        });
 
         return lista;
     }
