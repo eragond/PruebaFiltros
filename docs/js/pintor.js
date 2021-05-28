@@ -22,7 +22,7 @@ export default class Pintor {
 
     //Dependiendo del filtro, lo aplica a la imagen.
     pinta(filtro) {
-        let tempImg = new Image();
+        let tempImg = new Image(); //s
         tempImg.src = this.superpon ? this.img.src : this.oImg.src
         this.canvas.width = this.img.naturalWidth;
         this.canvas.height = this.img.naturalHeight;
