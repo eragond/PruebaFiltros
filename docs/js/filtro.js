@@ -248,3 +248,97 @@ export class Brillo extends Filtro {
         data[i+2] += this.cte;
     }
 }
+
+export class ValoresRGB extends Filtro {
+    nombre = "ValoresRGB";
+    info = "Pone una mica sobre la imagen";
+    constructor(){
+        super();
+        this.r = 0;
+        this.g = 0;
+        this.b = 0;
+    }
+
+    procesa(data) {
+        //Obtener informacion sobre la constante a utilizar.
+        let r, g, b;
+        while (isNaN(r))
+            r = prompt("Escribe un numero rojo", 0);
+        while (isNaN(g))
+            g = prompt("Escribe un numero verde", 0);
+        while (isNaN(b))
+            b = prompt("Escribe un numero azul", 0);
+        this.r = parseInt(r);
+        this.g = parseInt(g);
+        this.b = parseInt(b);
+        // if (!isNaN(this.cte))
+        super.procesa(data);
+    }
+
+    procPixel(data, i){
+        data[i] &= this.r;
+        data[i+1] &= this.g;
+        data[i+2] &= this.b;
+    }
+}
+
+export class FiltroConvolutivo extends Filtro {
+    nombre = "Template convolutivo";
+    info = "Procesa la cuadricula";
+    constructor(){
+        super();
+        // this.malla =
+        // [[0,0,0],
+        //  [0,2,0],
+        //  [0,0,0]]
+        //
+        this.malla =
+        // [[0,0.2,0],
+        //  [0.2,0.2,0.2],
+        //  [0,0.2,0]]
+
+         // [[0, 0, 1, 0, 0],
+         // [0, 1, 1, 1, 0],
+         // [1, 1, 1, 1, 1],
+         // [0, 1, 1, 1, 0],
+         // [0, 0, 1, 0, 0]]
+
+         [[0,  0, -1,  0,  0],
+         [0,  0, -1,  0,  0],
+         [0,  0,  2,  0,  0],
+         [0,  0,  0,  0,  0],
+         [0,  0,  0,  0,  0]]
+
+    }
+
+    procesa(data) {
+        let tempData = data.slice(); //Copia del arreglo de datos.
+        let offsetY = Math.floor(this.malla.length / 2); //El extra de la malla
+        let offsetX = Math.floor(this.malla[0].length / 2);
+
+        for (let j = offsetY; j < (this.imgHeight - offsetY); j++){
+            for (let i = offsetX; i < (this.imgWidth - offsetX); i++){
+                var red = 0, green = 0, blue = 0, pixPos = (i + j*this.imgWidth)*4;
+                // console.log("Pixel",j,i);
+                // console.log((i + j*this.imgWidth)*4);
+                for (let dy = 0; dy < this.malla.length; dy++) {
+                    for (let dx = 0; dx < this.malla[0].length; dx++) {
+                        let meshPixPos = ((i-offsetX+dx) + (j-offsetY+dy)*this.imgWidth) * 4;
+                        // console.log((j-offsetY+dy),(i-offsetX+dx));
+                        // console.log(tempData[((i-offsetX+dx) + (j-offsetY+dy)*this.imgWidth)*4]);
+                        // console.log(tempData[((i-offsetX) + (j-offsetY)*this.imgWidth)*4 + 1]);
+                        // console.log(tempData[((i-offsetX) + (j-offsetY)*this.imgWidth)*4 + 2]);
+                        red += tempData[meshPixPos] * this.malla[dy][dx];
+                        green += tempData[meshPixPos+1] * this.malla[dy][dx];
+                        blue += tempData[meshPixPos+2] * this.malla[dy][dx];
+                    }
+                }
+                data[pixPos] = red;
+                data[pixPos+1] = green;
+                data[pixPos+2] = blue;
+            }
+        }
+        console.log("Fin");
+    }
+
+}
