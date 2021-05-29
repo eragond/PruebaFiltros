@@ -42,15 +42,28 @@ function readImage() {
 //Crea la lista de filtros en el html y sus respectivos eventos de activacion.
 function creaListaFiltros(){
     let l = pintor.getListaFiltros();
+    let tipos = {};
     for (let fil of l) {
-        let elemento = document.createElement('button');
+        if (!(fil.tipo in tipos)) { //Si el tipo de filtro no existe, lo crea.
+            let newTipo = $("#listaFiltrosTemplate").clone();
+            let listaNewTipo = newTipo.find('#listaFiltros');
+            listaNewTipo.attr("id", "lista" + fil.tipo);
+            newTipo.attr("id", "listaFiltros" + fil.tipo);
+            newTipo.removeAttr("hidden");
+            newTipo.find(".btn").html(fil.tipo);
+            newTipo.find(".btn").attr("data-target", "#lista" + fil.tipo);
+            tipos[fil.tipo] = listaNewTipo;
+            $("#accordionFiltros").append(newTipo);
+
+        }
+        let elemento = document.createElement('button'); //Agrega el filtro deacuerdo a su categoria.
         elemento.setAttribute("class","list-group-item list-group-item-action bg-default");
         elemento.setAttribute("title",fil.info);
-        elemento.append(fil.nom)
+        elemento.append(fil.nombre)
         elemento.onclick = () => {
             pintor.pinta(fil.fnom);
             guardaImagenADescargar();
         };
-        $("#listaFiltros").append(elemento);
+        tipos[fil.tipo].append(elemento);
     }
 }

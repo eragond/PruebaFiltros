@@ -47,11 +47,11 @@ export default class Pintor {
     getListaFiltros(){
         var lista = [];
         for (let d in this.listaFiltros)
-            lista.push({'fnom':d ,
-                        'nom': this.listaFiltros[d].nombre,
-                        'info': this.listaFiltros[d].info
+            lista.push({'fnom': d,
+                        'nombre': this.listaFiltros[d].nombre,
+                        'info': this.listaFiltros[d].info,
+                        'tipo': this.listaFiltros[d].tipo
                         });
-
         return lista;
     }
 }
