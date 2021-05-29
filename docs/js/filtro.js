@@ -287,27 +287,13 @@ export class FiltroConvolutivo extends Filtro {
     info = "Procesa la cuadricula";
     constructor(){
         super();
-        // this.malla =
-        // [[0,0,0],
-        //  [0,2,0],
-        //  [0,0,0]]
-        //
+        this.factor = 1;
+        this.bias = 0;
+
         this.malla =
-        // [[0,0.2,0],
-        //  [0.2,0.2,0.2],
-        //  [0,0.2,0]]
-
-         // [[0, 0, 1, 0, 0],
-         // [0, 1, 1, 1, 0],
-         // [1, 1, 1, 1, 1],
-         // [0, 1, 1, 1, 0],
-         // [0, 0, 1, 0, 0]]
-
-         [[0,  0, -1,  0,  0],
-         [0,  0, -1,  0,  0],
-         [0,  0,  2,  0,  0],
-         [0,  0,  0,  0,  0],
-         [0,  0,  0,  0,  0]]
+        [[0,0,0],
+         [0,1,0],
+         [0,0,0]]
 
     }
 
@@ -333,12 +319,103 @@ export class FiltroConvolutivo extends Filtro {
                         blue += tempData[meshPixPos+2] * this.malla[dy][dx];
                     }
                 }
-                data[pixPos] = red;
-                data[pixPos+1] = green;
-                data[pixPos+2] = blue;
+                data[pixPos] = red * this.factor + this.bias;
+                data[pixPos+1] = green * this.factor + this.bias;
+                data[pixPos+2] = blue * this.factor + this.bias;
             }
         }
         console.log("Fin");
     }
 
+}
+
+export class Blur extends FiltroConvolutivo {
+    nombre = "Blur";
+    info = "Procesa la cuadricula";
+    constructor() {
+        super();
+        this.factor = 1.0;
+        this.malla =
+        [[0,0.2,0],
+         [0.2,0.2,0.2],
+         [0,0.2,0]]
+    }
+}
+
+export class HardBlur extends FiltroConvolutivo {
+    nombre = "Blur Fuerte";
+    info = "Procesa la cuadricula";
+    constructor() {
+        super();
+        this.factor = 1 / 13;
+        this.malla =
+        [[0, 0, 1, 0, 0],
+        [0, 1, 1, 1, 0],
+        [1, 1, 1, 1, 1],
+        [0, 1, 1, 1, 0],
+        [0, 0, 1, 0, 0]]
+    }
+}
+
+export class MotionBlur extends FiltroConvolutivo {
+    nombre = "Motion Blur";
+    info = "Procesa la cuadricula";
+    constructor() {
+        super();
+        this.factor = 1 / 9;
+        this.malla =
+        [[1, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 1,]]
+    }
+}
+
+export class FindEdges extends FiltroConvolutivo {
+    nombre = "Encontrar Bordes";
+    info = "Procesa la cuadricula";
+    constructor() {
+        super();
+        this.factor = 1;
+        this.malla =
+        [[0,  0, -1,  0,  0],
+        [0,  0, -1,  0,  0],
+        [0,  0,  2,  0,  0],
+        [0,  0,  0,  0,  0],
+        [0,  0,  0,  0,  0]]
+    }
+}
+
+export class Sharpen extends FiltroConvolutivo {
+    nombre = "Sharpen";
+    info = "Procesa la cuadricula";
+    constructor() {
+        super();
+        this.factor = 1;
+        this.malla =
+        [[-1,-1,-1],
+         [-1,9,-1],
+         [-1,-1,-1]]
+    }
+}
+
+export class Emboss extends FiltroConvolutivo {
+    nombre = "Emboss";
+    info = "Procesa la cuadricula";
+    constructor() {
+        super();
+        this.factor = 1;
+        this.bias = 128;
+        this.malla =
+        [[-1, -1, -1, -1,  0],
+        [-1, -1, -1,  0,  1],
+        [-1, -1,  0,  1,  1],
+        [-1,  0,  1,  1,  1],
+        [0,  1,  1,  1,  1]]
+    }
 }
