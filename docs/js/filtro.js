@@ -3,176 +3,237 @@ class Filtro {
     nombre = "";
     info = "";
     tipo = "Pixeles"
+    ctx = undefined;
+    data = undefined;
 
-    setWidthHeight(width, height){
+    setConfig(ctx, width, height){
+        this.ctx = ctx;
         this.imgWidth = width;
         this.imgHeight = height;
+        this.imgMetadata = this.ctx.getImageData(0, 0, width, height);
+        this.data = this.imgMetadata.data;
     }
 
-
-    procesa(data) {
-        for (var i = 0; i < data.length; i += 4)
-          this.procPixel(data, i);
+    procesa(){
+        for (var i = 0; i < this.data.length; i += 4)
+            this.procPixel(i);
 
         // Otro recorrido
         // for (let j = 0; j < this.imgHeight; j++)
         //      for (let i = 0; i < this.imgWidth; i++)
-        //          this.procPixel(data, (i + j*this.imgWidth)*4);
+        //          this.procPixel((i + j*this.imgWidth)*4);
     }
 
-    procPixel(data, i){
-        var avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-        data[i] = avg;
-        data[i+1] = avg;
-        data[i+2] = avg;
+    cocina(){
+        this.ctx.putImageData(this.imgMetadata, 0,0);
     }
+
+    // procPixel(i){} //No definido
 }
 
 export class GrisPromedio extends Filtro {
     nombre = "Gris promedio";
     info = "Obtiene el gris promedio \nGy = (R + G + B)/3";
-    procPixel(data, i){
-        var gris = (data[i] + data[i + 1] + data[i + 2]) / 3;
-        data[i] = gris;
-        data[i+1] = gris;
-        data[i+2] = gris;
+    procPixel(i){
+        var gris = (this.data[i] + this.data[i + 1] + this.data[i + 2]) / 3;
+        this.data[i] = gris;
+        this.data[i+1] = gris;
+        this.data[i+2] = gris;
     }
 }
 
 export class GrisOjo extends Filtro {
     nombre = "Gris ojo";
     info = "Gy = 0.3 R + 0.59 G + 0.11 B";
-    procPixel(data, i){
-        var gris = data[i] * 0.3 + data[i + 1] * 0.59 + data[i + 2] * 0.11;
-        data[i] = gris;
-        data[i+1] = gris;
-        data[i+2] = gris;
+    procPixel(i){
+        var gris = this.data[i] * 0.3 + this.data[i + 1] * 0.59 + this.data[i + 2] * 0.11;
+        this.data[i] = gris;
+        this.data[i+1] = gris;
+        this.data[i+2] = gris;
     }
 }
 
 export class GrisLuma extends Filtro {
     nombre = "Gris luma";
     info = "Gy = 0.2126 R + 0.7152 G + 0.0722 B";
-    procPixel(data, i){
-        var gris = data[i] * 0.2126 + data[i + 1] * 0.7152 + data[i + 2] * 0.0722;
-        data[i] = gris;
-        data[i+1] = gris;
-        data[i+2] = gris;
+    procPixel(i){
+        var gris = this.data[i] * 0.2126 + this.data[i + 1] * 0.7152 + this.data[i + 2] * 0.0722;
+        this.data[i] = gris;
+        this.data[i+1] = gris;
+        this.data[i+2] = gris;
     }
 }
 
 export class GrisMinMax extends Filtro {
     nombre = "Gris min-max";
     info = "Gy = (Min(R,G,B) + Max(R,G,B)) / 2";
-    procPixel(data, i){
-        var gris = (Math.max(data[i], data[i + 1], data[i + 2]) +
-                    Math.min(data[i], data[i + 1], data[i + 2])) / 2;
-        data[i] = gris;
-        data[i+1] = gris;
-        data[i+2] = gris;
+    procPixel(i){
+        var gris = (Math.max(this.data[i], this.data[i + 1], this.data[i + 2]) +
+                    Math.min(this.data[i], this.data[i + 1], this.data[i + 2])) / 2;
+        this.data[i] = gris;
+        this.data[i+1] = gris;
+        this.data[i+2] = gris;
     }
 }
 
 export class GrisMax extends Filtro {
     nombre = "Gris max";
     info = "Gy = Max(R,G,B)";
-    procPixel(data, i){
-        var gris = Math.max(data[i], data[i + 1], data[i + 2]);
-        data[i] = gris;
-        data[i+1] = gris;
-        data[i+2] = gris;
+    procPixel(i){
+        var gris = Math.max(this.data[i], this.data[i + 1], this.data[i + 2]);
+        this.data[i] = gris;
+        this.data[i+1] = gris;
+        this.data[i+2] = gris;
     }
 }
 
 export class GrisMin extends Filtro {
     nombre = "Gris min";
     info = "Gy = Min(R,G,B)";
-    procPixel(data, i){
-        var gris = Math.min(data[i], data[i + 1], data[i + 2]);
-        data[i] = gris;
-        data[i+1] = gris;
-        data[i+2] = gris;
+    procPixel(i){
+        var gris = Math.min(this.data[i], this.data[i + 1], this.data[i + 2]);
+        this.data[i] = gris;
+        this.data[i+1] = gris;
+        this.data[i+2] = gris;
     }
 }
 
 export class GrisRojo extends Filtro {
     nombre = "Gris rojo";
     info = "Gy = R";
-    procPixel(data, i){
-        var gris = data[i];
-        data[i+1] = gris;
-        data[i+2] = gris;
+    procPixel(i){
+        var gris = this.data[i];
+        this.data[i+1] = gris;
+        this.data[i+2] = gris;
     }
 }
 
 export class GrisVerde extends Filtro {
     nombre = "Gris verde";
     info = "Gy = G";
-    procPixel(data, i){
-        var gris = data[i+1];
-        data[i] = gris;
-        data[i+2] = gris;
+    procPixel(i){
+        var gris = this.data[i+1];
+        this.data[i] = gris;
+        this.data[i+2] = gris;
     }
 }
 
 export class GrisAzul extends Filtro {
     nombre = "Gris azul";
     info = "Gy = B";
-    procPixel(data, i){
-        var gris = data[i+2];
-        data[i] = gris;
-        data[i+1] = gris;
+    procPixel(i){
+        var gris = this.data[i+2];
+        this.data[i] = gris;
+        this.data[i+1] = gris;
     }
 }
 
 export class Enverdecer extends Filtro {
     nombre = "Enverdecer";
     info = "Solo mantiene la componente verde";
-    procPixel(data, i){
-        data[i] = 0;
-        data[i+2] = 0;
+    procPixel(i){
+        this.data[i] = 0;
+        this.data[i+2] = 0;
     }
 }
 
 export class Azulecer extends Filtro {
     nombre = "Azulecer";
     info = "Solo mantiene la componente azul";
-    procPixel(data, i){
-        data[i] = 0;
-        data[i+1] = 0;
+    procPixel(i){
+        this.data[i] = 0;
+        this.data[i+1] = 0;
     }
 }
 
 export class Enrojecer extends Filtro {
     nombre = "Enrojecer";
     info = "Solo mantiene la componente roja";
-    procPixel(data, i){
-        data[i+1] = 0;
-        data[i+2] = 0;
+    procPixel(i){
+        this.data[i+1] = 0;
+        this.data[i+2] = 0;
     }
 }
 
 export class AltoContraste extends Filtro {
     nombre = "Alto Contraste";
     info = "Blanco y negro al extremo";
-    procPixel(data, i){
-        var gris = (data[i] + data[i + 1] + data[i + 2]) / 3;
+    procPixel(i){
+        var gris = (this.data[i] + this.data[i + 1] + this.data[i + 2]) / 3;
         gris = (gris > 127) ? 255 : 0;
-        data[i] = gris;
-        data[i+1] = gris;
-        data[i+2] = gris;
+        this.data[i] = gris;
+        this.data[i+1] = gris;
+        this.data[i+2] = gris;
     }
 }
 
 export class Inverso extends Filtro {
     nombre = "Inverso";
     info = "Inverso a alto contraste";
-    procPixel(data, i){
-        var gris = (data[i] + data[i + 1] + data[i + 2]) / 3;
+    procPixel(i){
+        var gris = (this.data[i] + this.data[i + 1] + this.data[i + 2]) / 3;
         gris = (gris > 127) ? 0 : 255;
-        data[i] = gris;
-        data[i+1] = gris;
-        data[i+2] = gris;
+        this.data[i] = gris;
+        this.data[i+1] = gris;
+        this.data[i+2] = gris;
+    }
+}
+
+export class Brillo extends Filtro {
+    nombre = "Brillo";
+    info = "Suma una constante [-255,255] a cada pixel \n(R,G,B) -> (R+c,G+c,B+c)";
+    constructor(){
+        super();
+        this.cte = 0;
+    }
+
+    procesa() {
+        //Obtener informacion sobre la constante a utilizar.
+        let ccte;
+        while (isNaN(ccte))
+            ccte = prompt("Escribe un numero valido", 0);
+        this.cte = parseInt(ccte);
+        if (!isNaN(this.cte))
+            super.procesa()
+    }
+
+    procPixel(i){
+        this.data[i] += this.cte;
+        this.data[i+1] += this.cte;
+        this.data[i+2] += this.cte;
+    }
+}
+
+export class ValoresRGB extends Filtro {
+    nombre = "ValoresRGB";
+    info = "Pone una mica sobre la imagen";
+    constructor(){
+        super();
+        this.r = 0;
+        this.g = 0;
+        this.b = 0;
+    }
+
+    procesa() {
+        //Obtener informacion sobre la constante a utilizar.
+        let r, g, b;
+        while (isNaN(r))
+            r = prompt("Escribe un numero rojo", 0);
+        while (isNaN(g))
+            g = prompt("Escribe un numero verde", 0);
+        while (isNaN(b))
+            b = prompt("Escribe un numero azul", 0);
+        this.r = parseInt(r);
+        this.g = parseInt(g);
+        this.b = parseInt(b);
+        // if (!isNaN(this.cte))
+        super.procesa();
+    }
+
+    procPixel(i){
+        this.data[i] &= this.r;
+        this.data[i+1] &= this.g;
+        this.data[i+2] &= this.b;
     }
 }
 
@@ -194,11 +255,11 @@ export class Mosaico extends Filtro {
         if (!isNaN(width) && !isNaN(height))
             for (let y = 0; y < this.imgHeight; y += height)
                 for (let x = 0; x < this.imgWidth; x += width)
-                    this.mosaicoSeccion(data, x, y, width, height);
+                    this.mosaicoSeccion(x, y, width, height);
     }
 
     //Obtiene el color promedio de una seccion y lo aplica a cada pixel en esta.
-    mosaicoSeccion(data, x, y, wd, ht){
+    mosaicoSeccion(x, y, wd, ht){
         let sumaTotal = [0,0,0];  //Auxiliar para guardar los colores promedio.
         let total = 0;            //Auxiliar para obtener el total de pixeles en la seccion.
 
@@ -209,13 +270,13 @@ export class Mosaico extends Filtro {
                     if (i + x < this.imgWidth && j + y < this.imgHeight) { //Verificamos fronteras.
                         if (round == 0) {           //Primera ronda, leer info de los pixeles.
                             total += 1;             //Contador para promediar.
-                            sumaTotal[0] += data[place];
-                            sumaTotal[1] += data[place+1];
-                            sumaTotal[2] += data[place+2];
+                            sumaTotal[0] += this.data[place];
+                            sumaTotal[1] += this.data[place+1];
+                            sumaTotal[2] += this.data[place+2];
                         } else {                    //Segunda ronda, escribir sobre los pixeles.
-                            data[place] = sumaTotal[0];
-                            data[place+1] = sumaTotal[1];
-                            data[place+2] = sumaTotal[2];
+                            this.data[place] = sumaTotal[0];
+                            this.data[place+1] = sumaTotal[1];
+                            this.data[place+2] = sumaTotal[2];
                         }
                     }
                 }
@@ -226,63 +287,6 @@ export class Mosaico extends Filtro {
     }
 }
 
-export class Brillo extends Filtro {
-    nombre = "Brillo";
-    info = "Suma una constante [-255,255] a cada pixel \n(R,G,B) -> (R+c,G+c,B+c)";
-    constructor(){
-        super();
-        this.cte = 0;
-    }
-
-    procesa(data) {
-        //Obtener informacion sobre la constante a utilizar.
-        let ccte;
-        while (isNaN(ccte))
-            ccte = prompt("Escribe un numero valido", 0);
-        this.cte = parseInt(ccte);
-        if (!isNaN(this.cte))
-            super.procesa(data)
-    }
-
-    procPixel(data, i){
-        data[i] += this.cte;
-        data[i+1] += this.cte;
-        data[i+2] += this.cte;
-    }
-}
-
-export class ValoresRGB extends Filtro {
-    nombre = "ValoresRGB";
-    info = "Pone una mica sobre la imagen";
-    constructor(){
-        super();
-        this.r = 0;
-        this.g = 0;
-        this.b = 0;
-    }
-
-    procesa(data) {
-        //Obtener informacion sobre la constante a utilizar.
-        let r, g, b;
-        while (isNaN(r))
-            r = prompt("Escribe un numero rojo", 0);
-        while (isNaN(g))
-            g = prompt("Escribe un numero verde", 0);
-        while (isNaN(b))
-            b = prompt("Escribe un numero azul", 0);
-        this.r = parseInt(r);
-        this.g = parseInt(g);
-        this.b = parseInt(b);
-        // if (!isNaN(this.cte))
-        super.procesa(data);
-    }
-
-    procPixel(data, i){
-        data[i] &= this.r;
-        data[i+1] &= this.g;
-        data[i+2] &= this.b;
-    }
-}
 
 class FiltroConvolutivo extends Filtro {
     nombre = "Template convolutivo";
@@ -298,8 +302,8 @@ class FiltroConvolutivo extends Filtro {
          [0,0,0]]
     }
 
-    procesa(data) {
-        let tempData = data.slice(); //Copia del arreglo de datos.
+    procesa() {
+        let tempData = this.data.slice(); //Copia del arreglo de datos.
         let offsetY = Math.floor(this.malla.length / 2); //El extra de la malla
         let offsetX = Math.floor(this.malla[0].length / 2);
 
@@ -319,11 +323,10 @@ class FiltroConvolutivo extends Filtro {
                         green += tempData[meshPixPos+1] * this.malla[dy][dx];
                         blue += tempData[meshPixPos+2] * this.malla[dy][dx];
                     }
-                data[pixPos] = red * this.factor + this.bias;
-                data[pixPos+1] = green * this.factor + this.bias;
-                data[pixPos+2] = blue * this.factor + this.bias;
+                this.data[pixPos] = red * this.factor + this.bias;
+                this.data[pixPos+1] = green * this.factor + this.bias;
+                this.data[pixPos+2] = blue * this.factor + this.bias;
             }
-        console.log("Fin");
     }
 
 }

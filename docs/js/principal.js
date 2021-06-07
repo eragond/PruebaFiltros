@@ -50,8 +50,7 @@ function creaListaFiltros(){
             listaNewTipo.attr("id", "lista" + fil.tipo);
             newTipo.attr("id", "listaFiltros" + fil.tipo);
             newTipo.removeAttr("hidden");
-            newTipo.find(".btn").html(fil.tipo);
-            newTipo.find(".btn").attr("data-target", "#lista" + fil.tipo);
+            newTipo.find(".btn").html(fil.tipo).attr("data-target", "#lista" + fil.tipo);
             tipos[fil.tipo] = listaNewTipo;
             $("#accordionFiltros").append(newTipo);
 
