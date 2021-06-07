@@ -23,4 +23,8 @@ export class Filtro {
     }
 
     procPixel(i){} //No definido
+
+    limpiaCanvas(){
+        this.ctx.clearRect(0, 0, this.imgWidth, this.imgHeight);
+    }
 }
