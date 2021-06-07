@@ -1,4 +1,6 @@
-import * as filtros from "./filtro.js"
+import * as filtrosPixeles from "./filtroPixeles.js"
+import * as filtrosConvolutivos from "./filtroConvolutivo.js"
+import * as filtrosAreas from "./filtroAreas.js"
 
 export default class Pintor {
     constructor(img) {
@@ -10,8 +12,12 @@ export default class Pintor {
         this.oImg = new Image();
         this.oImg.src = img.src;
         this.superpon = false;
-        for (let clase in filtros)                      //Llenamos la lista de filtros.
-            this.listaFiltros[clase] = new filtros[clase]();
+        for (let clase in filtrosPixeles)                           //Llenamos la lista de filtros sobre pixeles.
+            this.listaFiltros[clase] = new filtrosPixeles[clase]();
+        for (let clase in filtrosConvolutivos)                      //Llenamos la lista de filtros convolutivos.
+            this.listaFiltros[clase] = new filtrosConvolutivos[clase]();
+        for (let clase in filtrosAreas)                             //Llenamos la lista de filtros sobre areas.
+            this.listaFiltros[clase] = new filtrosAreas[clase]();
     }
 
     //Actualiza la imagen con la que trabaja el pintor.
@@ -48,7 +54,7 @@ export default class Pintor {
     }
 
     //Regresa la lista de los filtros con los que cuenta el pintor.
-    getListaFiltros(){
+    getListaFiltros(){  // TODO: Mejorar esta madre.
         var lista = [];
         for (let d in this.listaFiltros)
             lista.push({'fnom': d,
