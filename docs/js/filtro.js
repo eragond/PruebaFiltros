@@ -16,11 +16,6 @@ export class Filtro {
     procesa(){
         for (var i = 0; i < this.data.length; i += 4)
             this.procPixel(i);
-
-        // Otro recorrido
-        // for (let j = 0; j < this.imgHeight; j++)
-        //      for (let i = 0; i < this.imgWidth; i++)
-        //          this.procPixel((i + j*this.imgWidth)*4);
     }
 
     cocina(){
