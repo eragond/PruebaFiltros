@@ -45,7 +45,7 @@ class FiltroConvolutivo extends Filtro {
 
 export class Blur extends FiltroConvolutivo {
     nombre = "Blur Basico";
-    info = "Procesa la cuadricula";
+    info = "Añade un blur suave a la imagen";
     constructor() {
         super();
         this.factor = 1;
@@ -58,7 +58,7 @@ export class Blur extends FiltroConvolutivo {
 
 export class GausianBlur3x3 extends FiltroConvolutivo {
     nombre = "Blur Gausiano 3x3";
-    info = "Procesa la cuadricula";
+    info = "Añade un blur Gausiano a la imagen (3x3)";
     constructor() {
         super();
         this.factor = 1 / 16;
@@ -71,7 +71,7 @@ export class GausianBlur3x3 extends FiltroConvolutivo {
 
 export class GausianBlur5x5 extends FiltroConvolutivo {
     nombre = "Blur Gausiano 5x5";
-    info = "Procesa la cuadricula";
+    info = "Añade un blur Gausiano a la imagen (5x5)";
     constructor() {
         super();
         this.factor = 1 / 256;
@@ -86,7 +86,7 @@ export class GausianBlur5x5 extends FiltroConvolutivo {
 
 export class HardBlur extends FiltroConvolutivo {
     nombre = "Blur Fuerte";
-    info = "Procesa la cuadricula";
+    info = "Añade un blur fuerte a la imagen";
     constructor() {
         super();
         this.factor = 1 / 13;
@@ -101,7 +101,7 @@ export class HardBlur extends FiltroConvolutivo {
 
 export class MotionBlur extends FiltroConvolutivo {
     nombre = "Motion Blur";
-    info = "Procesa la cuadricula";
+    info = "Añade un blur de movimiento a la imagen";
     constructor() {
         super();
         this.factor = 1 / 9;
@@ -120,7 +120,7 @@ export class MotionBlur extends FiltroConvolutivo {
 
 export class FindAllEdges extends FiltroConvolutivo {
     nombre = "Bordes Omnidireccionales";
-    info = "Procesa la cuadricula";
+    info = "Resalta bordes en cualquier direccion de la imagen";
     constructor() {
         super();
         this.factor = 1;
@@ -133,7 +133,7 @@ export class FindAllEdges extends FiltroConvolutivo {
 
 export class FindHorizontalEdges extends FiltroConvolutivo {
     nombre = "Bordes Horizontales";
-    info = "Procesa la cuadricula";
+    info = "Resalta bordes horizontales de la imagen";
     constructor() {
         super();
         this.factor = 1;
@@ -148,7 +148,7 @@ export class FindHorizontalEdges extends FiltroConvolutivo {
 
 export class FindVerticalEdges extends FiltroConvolutivo {
     nombre = "Bordes Verticales";
-    info = "Procesa la cuadricula";
+    info = "Resalta bordes verticales de la imagen";
     constructor() {
         super();
         this.factor = 1;
@@ -163,7 +163,7 @@ export class FindVerticalEdges extends FiltroConvolutivo {
 
 export class FindDiagonalEdges extends FiltroConvolutivo {
     nombre = "Bordes Diagonales";
-    info = "Procesa la cuadricula";
+    info = "Resalta bordes diagonales de la imagen";
     constructor() {
         super();
         this.factor = 1;
@@ -178,7 +178,7 @@ export class FindDiagonalEdges extends FiltroConvolutivo {
 
 export class Sharpen extends FiltroConvolutivo {
     nombre = "Sharpen";
-    info = "Procesa la cuadricula";
+    info = "Afina la imagen";
     constructor() {
         super();
         this.factor = 1;
@@ -191,7 +191,7 @@ export class Sharpen extends FiltroConvolutivo {
 
 export class SoftSharpen extends FiltroConvolutivo {
     nombre = "Sharpen Suavizado";
-    info = "Procesa la cuadricula";
+    info = "Afina la imagen suavemente";
     constructor() {
         super();
         this.factor = 1 / 8;
@@ -206,7 +206,7 @@ export class SoftSharpen extends FiltroConvolutivo {
 
 export class ExcesiveEdges extends FiltroConvolutivo {
     nombre = "Bordes Excesivos";
-    info = "Procesa la cuadricula";
+    info = "Afina la imagen excesivamente";
     constructor() {
         super();
         this.factor = 1;
@@ -219,7 +219,7 @@ export class ExcesiveEdges extends FiltroConvolutivo {
 
 export class HardEmboss extends FiltroConvolutivo {
     nombre = "Emboss Fuerte";
-    info = "Procesa la cuadricula";
+    info = "Realza caracteristicas de la imagen fuertemente";
     constructor() {
         super();
         this.factor = 1;
@@ -235,7 +235,7 @@ export class HardEmboss extends FiltroConvolutivo {
 
 export class SoftEmboss extends FiltroConvolutivo {
     nombre = "Emboss Suave";
-    info = "Procesa la cuadricula";
+    info = "Realza caracteristicas de la imagen suavemente";
     constructor() {
         super();
         this.factor = 1;
