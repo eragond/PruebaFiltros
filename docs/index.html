@@ -23,43 +23,6 @@
 
   <div class="d-flex" id="wrapper">
 
-    <!-- <button id="rangeModal1" hidden type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Modal de range 0-255</button>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ingresa valores</h5>
-          </div>
-          <div class="modal-body">
-              <label for="customRange1">Example range <span id="customRangeBadge" class="badge badge-pill badge-info">0</span></label>
-              <input type="range" min=0 max=255 value=0 class="custom-range" id="customRange1">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" >Procesa</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <button id="rangeModal2" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Modal doble de range.</button>
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel2">Ingresa valores</h5>
-          </div>
-          <div class="modal-body">
-              <label class="col-form-label" for="inputDefault">Ancho</label>
-              <input type="text" class="form-control" placeholder="Ancho del intervalo" id="inputAncho">
-              <label class="col-form-label" for="inputDefault">Alto</label>
-              <input type="text" class="form-control" placeholder="Alto del intervalo" id="inputAlto">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" >Procesa</button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     <!-- Sidebar -->
     <div class="bg-default border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Filtros disponibles </div>
@@ -80,10 +43,7 @@
         </div>
 
     </div>
-      <!-- <div id="listaFiltros" class="list-group list-group-flush"> -->
-        <!-- <button class="list-group-item list-group-item-action bg-default">Gris1 </button>
-        <a href="#" class="list-group-item list-group-item-action bg-default">Status</a> -->
-      <!-- </div> -->
+
     </div>
     <!-- /#sidebar-wrapper -->
 
@@ -107,17 +67,7 @@
             <li class="nav-item">
               <a id="bajarImagen" download="img.png" class="nav-link btn disabled" title="Baja tu imagen">Bajar </a>
             </li>
-            <!-- <li class="nav-item dropdown"> Para implementar una libreria de imagenes
-              <a class="btn nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Libreria de imagenes">
-                  <span > Libreria</span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Autor</a>
-                <a class="dropdown-item" href="#">Github</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Libreria de imagenes</a>
-              </div>
-            </li> -->
+
             <li class="nav-item">
                 <a id="githublink" target="blank" href="https://github.com/eragond/PruebaFiltros" class="nav-link btn" title="Informacion del autor" >Autor</a>
             </li>
@@ -160,16 +110,6 @@
     $("#customRange1").on("input", () => {
         $("#customRangeBadge").text(slider.value);
     });
-
-    // $("#procesame").on("click",() =>{
-    //     console.log("asdf");
-    //     $("#rangeModal1").click();
-    // });
-    //
-    // let ancho = $("#inputAncho")[0];
-    // $("#inputAncho").on("input", (val) => {
-    //     console.log(ancho.value);
-    // })
 
   </script>
 
