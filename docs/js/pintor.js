@@ -32,14 +32,11 @@ export default class Pintor {
         tempImg.src = this.superpon ? this.img.src : this.oImg.src
         this.canvas.width = this.img.naturalWidth;
         this.canvas.height = this.img.naturalHeight;
-        this.ctx.drawImage(tempImg, 0, 0);
-        // let ini = performance.now()
-        let fActual = this.listaFiltros[filtro];
+        this.ctx.drawImage(tempImg, 0, 0);          //Llenamos el canvas con la imagen.
+        let fActual = this.listaFiltros[filtro];    //El filtro en uso.
         fActual.setConfig(this.ctx, this.img.naturalWidth, this.img.naturalHeight);
         fActual.procesa();
         fActual.cocina();
-        // let fin = performance.now()
-        // console.log("Perfomance global " + (fin - ini));
         this.salvaImagen();
     }
 

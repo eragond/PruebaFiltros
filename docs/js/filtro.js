@@ -22,7 +22,9 @@ export class Filtro {
         this.ctx.putImageData(this.imgMetadata, 0,0);
     }
 
-    procPixel(i){} //No definido
+    procPixel(i){
+        throw new Error("Metodo no implementado en clase abstracta");
+    } //No definido
 
     limpiaCanvas(){
         this.ctx.clearRect(0, 0, this.imgWidth, this.imgHeight);
