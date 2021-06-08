@@ -57,6 +57,7 @@ export class Mosaico extends FiltroArea {
         }
     }
 
+    //Regresa el color promedio de una seccion.
     colorPromedio(x, y, wd, ht){
         let sumaTotal = [0,0,0];  //Auxiliar para guardar los colores promedio.
         let total = 0;            //Auxiliar para obtener el total de pixeles en la seccion.
