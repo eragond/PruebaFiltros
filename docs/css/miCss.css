@@ -4,3 +4,8 @@ canvas {
   margin-bottom: 0;
   vertical-align: bottom;
 }
+
+.list-group{
+    max-height: 100vh;
+    overflow:auto;
+}

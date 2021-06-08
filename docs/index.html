@@ -25,11 +25,25 @@
 
     <!-- Sidebar -->
     <div class="bg-default border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Filtros disponibles </div>
-      <div id="listaFiltros" class="list-group list-group-flush">
-        <!-- <button class="list-group-item list-group-item-action bg-default">Gris1 </button>
-        <a href="#" class="list-group-item list-group-item-action bg-default">Status</a> -->
-      </div>
+        <div class="sidebar-heading">Filtros disponibles </div>
+
+        <div class="accordion" id="accordionFiltros">
+
+        <div id="listaFiltrosTemplate" hidden>
+          <div class="card">
+            <div class="card-header" id="headingOne">
+                <button class="btn" type="button" data-toggle="collapse" data-target="#listaFiltros" aria-expanded="false">
+                  Filtros de Pixeles
+                </button>
+            </div>
+          </div>
+
+          <div id="listaFiltros" class="list-group list-group-flush collapse" data-parent="#accordionFiltros">
+          </div>
+        </div>
+
+    </div>
+
     </div>
     <!-- /#sidebar-wrapper -->
 
@@ -53,6 +67,7 @@
             <li class="nav-item">
               <a id="bajarImagen" download="img.png" class="nav-link btn disabled" title="Baja tu imagen">Bajar </a>
             </li>
+
             <li class="nav-item">
                 <a id="githublink" target="blank" href="https://github.com/eragond/PruebaFiltros" class="nav-link btn" title="Informacion del autor" >Autor</a>
             </li>
