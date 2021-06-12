@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Filtros</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+  <link href="../css/miCss.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="overflow-auto bg-default border-left" style="max-height: 100vh;" id="sidebar-wrapper">
+        <div class="sidebar-heading">Filtros disponibles</div>
+
+        <div class="accordion" id="accordionFiltros">
+
+            <div id="listaFiltrosTemplate" hidden>
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                    <button class="btn" type="button" data-toggle="collapse" data-target="#listaFiltros" aria-expanded="true">
+                      Filtros de Pixeles
+                    </button>
+                </div>
+              </div>
+
+              <div id="listaFiltros" class="overflow-hidden list-group list-group-flush collapse" data-parent="#accordionFiltros">
+              </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+
+        <button class="btn btn-secondary" id="menu-toggle">Filtros</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+               <input type='file' id="fileUpload" hidden name="fileUploader"/>
+               <label for="fileUpload" class="nav-link btn" title="Sube tu imagen">Subir</label>
+            </li>
+            <li class="nav-item">
+              <a id="bajarImagen" download="img.png" class="nav-link btn disabled" title="Baja tu imagen">Bajar </a>
+            </li>
+            <li class="nav-item">
+                <a id="githublink" target="blank" href="https://github.com/eragond/PruebaFiltros" class="nav-link btn" title="Informacion del autor" >Autor</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+         <div class="row">
+             <div class="col-md-6 bg-dark">
+                 <div class="bg-secondary m-2 p-4 text-center">
+                     <img id="imgOrig" class="img-fluid" src="../img/Leena.png" alt=""/>
+                </div>
+             </div>
+             <div class="col-md-6 bg-dark">
+                 <div class="bg-secondary m-2 p-4 text-center">
+                      <img id="imgProc" class="img-fluid" src="../img/Leena.png" alt=""/>
+                </div>
+             </div>
+         </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+    </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script type="module" src="../js/principal.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled").trigger('toggledImage');
+    });
+
+    let slider = $("#customRange1")[0];
+    $("#customRange1").on("input", () => {
+        $("#customRangeBadge").text(slider.value);
+    });
+
+  </script>
+
+</body>
+
+</html>
