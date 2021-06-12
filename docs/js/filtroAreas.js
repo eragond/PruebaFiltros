@@ -10,9 +10,9 @@ class FiltroArea extends Filtro {
     procesa(cb, width, height) {
         //Obtener informacion sobre las dimensiones del area.
         while (isNaN(width))
-            width = prompt("Escribe un ancho valido", 20);
+            width = prompt("Escribe un ancho valido", 10);
         while (isNaN(height))
-            height = prompt("Escribe un alto valido", 20);
+            height = prompt("Escribe un alto valido", 10);
         width = Math.max(1, Math.abs(parseInt(width)));
         height = Math.max(1, Math.abs(parseInt(height)));
 
