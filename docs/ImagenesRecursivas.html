@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Recursivas</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+  <link href="css/miCss.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <button class="btn btn-primary" id="resetBtn" >Reset</button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+               <input type='file' id="fileUpload" hidden name="fileUploader"/>
+               <label for="fileUpload" class="nav-link btn" title="Sube tu imagen">Subir</label>
+            </li>
+            <li class="nav-item">
+              <a id="bajarImagen" download="img.png" class="nav-link btn" title="Baja tu imagen">Bajar </a>
+            </li>
+            <li class="nav-item">
+                <a id="githublink" target="blank" href="https://github.com/eragond/PruebaFiltros" class="nav-link btn" title="Informacion del autor" >Autor</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+           <div class="row p-2 bg-dark justify-content-center">
+                    <div class="mx-2">
+                        <label for="regYImg">Region vertical imagen</label>
+                        <input type="text" class="form-control region" id="regYImg" value="10" autocomplete="off" >
+                    </div>
+                    <div class="mx-2">
+                        <label for="regXImg">Region horizontal imagen</label>
+                        <input type="text" class="form-control region" id="regXImg" value="10" autocomplete="off" >
+                    </div>
+                    <div class="mx-2">
+                        <label for="regYPix">Region vertical pixel</label>
+                        <input type="text" class="form-control region" id="regYPix" value="10" autocomplete="off" >
+                    </div>
+                    <div class="mx-2">
+                        <label for="regXPix">Region horizontal pixel</label>
+                        <input type="text" class="form-control region" id="regXPix" value="10" autocomplete="off" >
+                    </div>
+                    <div class="dropdown my-auto">
+                        <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tipo
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item " style="font-family: Arial, sans-serif;">Tonos de gris</a>
+                            <a class="dropdown-item " style="font-family: Arial, sans-serif;">Color verdadero</a>
+                        </div>
+                    </div>
+                    <div class="my-auto ml-1">
+                        <button type="button" id="grid" class="btn btn-secondary btn-sm">Procesar</button>
+                    </div>
+           </div>
+            <div class="row bg-dark justify-content-center">
+                <div id="poxi" class="bg-secondary m-2 p-4 text-center">
+                    <img id="imgProc" class="img-fluid" src="img/Leena.png" hidden alt=""/>
+                </div>
+           </div>
+        </div>
+
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    //VARIABLES GENERALES
+    let img = null;
+    let mosPos = {}
+    let props = {       //Proporciones de las imagenes a usar.
+        regXPix : 40,    //Proporciones de la imagen pequeña, llamada pixel.
+        regYPix : 40,
+        regXImg : 10,    //Proporciones de las regiones a considerar en la imagen original.
+        regYImg : 10
+    }
+    let ntilex = 0;
+    let ntiley = 0;
+    let rangoMin = -255; 
+    let rangoMax = 255; 
+    let ntonos = 20;
+              
+    const canvas = document.createElement('canvas'); //Creamos un canvas y su contexto.
+    const ctx = canvas.getContext("2d");
+    const pixCanvas = document.createElement('canvas'); //Canvas escalado y su contexto.
+    const pixCtx = pixCanvas.getContext("2d");
+    const mosCanvas = document.createElement('canvas'); //Mosaico de imagenes y su contexto.
+    const mosCtx = mosCanvas.getContext("2d");
+    const finCanvas = document.createElement('canvas'); //Mosaico de imagenes y su contexto.
+    const finCtx = finCanvas.getContext("2d");
+
+    //EVENTOS
+    //Al subir imagen
+    $("#fileUpload").change(readImage);
+
+    //Al cambiar texto de marca
+    $('.region').keyup(function() {
+        console.log(this.id, this.value);
+        props[this.id] = parseInt(this.value);
+    });
+
+    //Seleccionar tipo de proceso
+    // $('.fuente').click(function() {
+    //     $('#dropdownMenuLink').text(this.text);
+    //     $('#dropdownMenuLink').css('font-family', this.style['font-family']);
+    //     fstyle = this.style['font-family'];
+    // });
+
+    // //Resetear la imagen
+    // $('#resetBtn').click(function() {
+    //     drawImgCanvas();
+    // });
+
+    //Bajar imagen
+    $("#bajarImagen").click(guardaImagenADescargar);
+
+    $("#grid").click(function(){
+              //Aqui es donde se procesa todo
+    });
+
+
+    //CANVAS
+    window.onload = () =>{
+        $('#poxi').append(canvas);
+        $('#poxi').append(pixCanvas);
+        $('#poxi').append(mosCanvas);
+        $('#poxi').append(finCanvas);
+        img = $('#imgProc')[0];
+        ntiley = (img.naturalHeight / props['regYImg']); 
+        ntilex = (img.naturalWidth / props['regXImg']); 
+        drawImgCanvas();
+        generaPix();
+        generaMosaico();
+        generaImagen();
+    }
+
+    function drawImgCanvas() {
+        //Canvas con la imagen original
+        canvas.height = img.naturalHeight;
+        canvas.width = img.naturalWidth;
+        ctx.drawImage(img, 0, 0);
+
+        let metadata = ctx.getImageData(0,0, img.naturalWidth, img.naturalHeight);
+        let data = metadata.data;
+        aTonosDeGris(data);
+        ctx.putImageData(metadata, 0, 0);
+
+        finCanvas.height = ntiley * props['regYPix'];
+        finCanvas.width = ntilex * props['regXPix'];
+    }
+
+    function generaPix() {
+        //Canvas con la imagen-pixel ajustando el tamaño.
+        pixCanvas.height = props['regYPix'];
+        pixCanvas.width = props['regXPix'];
+        pixCtx.drawImage(img, 0, 0, props['regXPix'], props['regYPix']);
+
+        //Pasamos a tonos de gris
+        let metadata = pixCtx.getImageData(0,0, props['regXPix'], props['regYPix']);
+        let data = metadata.data;
+        aTonosDeGris(data);
+        pixCtx.putImageData(metadata, 0, 0);
+    }
+
+
+    function generaMosaico() { 
+        let step = (rangoMax - rangoMin)/ ntonos;
+        mosCanvas.height = props['regYPix'];
+        mosCanvas.width = props['regXPix'] * ntonos;
+        let metadataMos = mosCtx.getImageData(0,0, props['regXPix'] * ntonos, props['regYPix']);
+        let dataMos = metadataMos.data;
+
+        for (let tono = 0; tono < ntonos; tono += 1) { 
+            let metadataPix = pixCtx.getImageData(0,0, props['regXPix'], props['regYPix']);
+            let dataPix = metadataPix.data;
+            for (let i = 0; i < dataPix.length; i += 4) {
+                let gris = ((dataPix[i] + dataPix[i + 1] + dataPix[i + 2]) / 3) + rangoMin + tono * step;
+                dataPix[i] = gris;
+                dataPix[i+1] = gris;
+                dataPix[i+2] = gris;
+            }
+            mosPos[tono] = tono*props['regXPix']; //Posicion de cada tono
+            mosCtx.putImageData(metadataPix, tono*props['regXPix'], 0);
+        }
+    }
+    
+    function generaImagen() {
+        let metadata = ctx.getImageData(0,0, img.naturalWidth, img.naturalHeight);
+        let data = metadata.data;
+        let width = props['regXImg'];
+        let height = props['regYImg'];
+        let j = 0, i = 0;
+        for (let y = 0; y < ntiley; y += 1) {
+            for (let x = 0; x < ntilex; x += 1) {
+                let color = colorPromedio(x * width, y * height, width, height, img.naturalWidth, img.naturalHeight, data);
+                let gris = (color[0] + color[1] + color[2])/3;
+                let imgEnMos = selecCercano(gris);
+                // Obtenemos la informacion del mosaico
+                let mosdata = mosCtx.getImageData(imgEnMos, 0, props['regXPix'], props['regYPix']);
+                          
+                // Escribimos la info en la imagen final
+                finCtx.putImageData(mosdata, x*props['regXPix'], y*props['regYPix']);
+            }
+        }
+    }
+
+
+
+    // FUNCIONES AUXILIARES
+    function colorPromedio(x, y, wd, ht, wborder, hborder, data){
+        let sumaTotal = [0,0,0];  //Auxiliar para guardar los colores promedio.
+        let total = 0;            //Auxiliar para obtener el total de pixeles en la seccion.
+        for (let j = 0; j < ht; j++)           //Recorremos la seccion de anchura x altura.
+            for (let i = 0; i < wd; i++){
+                let place = ((x+i) + (y+j)*wborder)*4;    //Posicion del pixel en el arreglo data.
+                if (i + x < wborder && j + y < hborder) { //Verificamos fronteras.
+                    total += 1;             //Contador para promediar.
+                    sumaTotal[0] += data[place];
+                    sumaTotal[1] += data[place+1];
+                    sumaTotal[2] += data[place+2];
+                }
+            }
+        sumaTotal = sumaTotal.map(t => t/total);
+        return sumaTotal;
+    }
+
+
+    function selecCercano(gris) { 
+        let intervalo = 255 / ntonos; 
+        let lugar = gris / intervalo;
+        return mosPos[Math.floor(lugar)];
+    }
+
+    function aTonosDeGris(data) {
+        for (let i = 0; i < data.length; i += 4) {
+              let gris = (data[i] + data[i + 1] + data[i + 2]) / 3;
+              data[i] = gris;
+              data[i+1] = gris;
+              data[i+2] = gris;
+        }
+    }
+
+    function readImage() {
+        if (!this.files || !this.files[0]) return;
+        const FR = new FileReader();
+        FR.addEventListener("load", (evt) => {
+            img.addEventListener("load", () => {
+                drawImgCanvas();
+            });
+            img.src = evt.target.result;
+        });
+        FR.readAsDataURL(this.files[0]);
+    }
+
+    function guardaImagenADescargar() {
+        img.src = canvas.toDataURL("image/png");
+        $("#bajarImagen").attr("href", img.src);
+    }
+
+  </script>
+
+</body>
+
+</html>
