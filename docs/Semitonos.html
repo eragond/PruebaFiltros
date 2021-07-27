@@ -60,10 +60,12 @@
                             Tipo
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item tipo" style="font-family: Arial, sans-serif;">Circulos</a>
-                            <a class="dropdown-item tipo" style="font-family: Arial, sans-serif;">4 pts</a>
-                            <a class="dropdown-item tipo" style="font-family: Arial, sans-serif;">9 pts</a>
+                            <a id="bcirculo" class="dropdown-item tipo" style="font-family: Arial, sans-serif;">Circulos</a>
+                            <a id="b4pts" class="dropdown-item tipo" style="font-family: Arial, sans-serif;">4 puntos</a>
+                            <a id="b9pts" class="dropdown-item tipo" style="font-family: Arial, sans-serif;">9 puntos</a>
                         </div>
+                    </div>
+                    <div id="biblioteca">
                     </div>
                     <div class="my-auto ml-1">
                         <button type="button" id="grid" class="btn btn-secondary btn-sm">Procesar</button>
@@ -95,7 +97,7 @@
   
   <script type="module" src="BibliotecaImagenes.js"></script>
   <script type="module">
-    import { BibliotecaCirculo } from "./BibliotecaImagenes.js";
+    import { BibliotecaCirculo, BibliotecaPuntos } from "./BibliotecaImagenes.js";
     //VARIABLES GENERALES
     let img = null;         //Imagen a procesar
     let imgFin = null;      //Imagen final
@@ -132,16 +134,27 @@
     //Tipo de bilioteca a utilizar 
     $('.tipo').click(function() {
         $('#dropdownMenuLink').text(this.text);
-        console.log(this.text);
+        if(this.id == "bcirculo"){ 
+            tipo = new BibliotecaCirculo();
+        } else if (this.id == "b4pts") {
+            tipo = new BibliotecaPuntos(2, 6);
+        } else if (this.id == "b9pts") {
+            tipo = new BibliotecaPuntos(3, 10);
+        }
+        $("#biblioteca").empty();
+        $("#biblioteca").append(tipo.canvas);
     });
 
     //Procesar imagen
     $("#grid").click(function(){    
         let spiner = $('#loadingSpiner');
         spiner.show('fast', () => {
-            //TODO 
-            preprocImgRaiz();
-            generaImagen();
+            preprocImgRaiz();           //Preprocesar la imagen original
+            try { 
+                generaImagen();         //Genera imagen con la biblioteca seleccionada
+            } catch (err) { 
+                window.alert("Excediste las dimensiones del programa, intenta otra configuracion");
+            }
             guardaImagenADescargar();   //Guarda imagen para que sea descargable
             imgFin.width = img.width;   //Ajusta el tamaño en vista de imgFin para 
             imgFin.height = img.height; //que parezca del mismo tamaño que la original.
@@ -153,8 +166,8 @@
     window.onload = () =>{
         img = $('#imgProc')[0];
         imgFin = $('#imgFin')[0];
-        $("#poxi").append(tipo.canvas);
         $('#loadingSpiner').hide();
+        $('#biblioteca').append(tipo.canvas);
     }
 
     // Preprocesar imagen original
