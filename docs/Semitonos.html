@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Recursivas</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+  <link href="css/miCss.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <!-- <button class="btn btn-primary" id="resetBtn" >Reset</button> -->
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+               <input type='file' id="fileUpload" hidden name="fileUploader"/>
+               <label for="fileUpload" class="nav-link btn" title="Sube tu imagen">Subir</label>
+            </li>
+            <li class="nav-item">
+              <a id="bajarImagen" download="img.png" class="nav-link btn" title="Baja tu imagen">Bajar </a>
+            </li>
+            <li class="nav-item">
+                <a id="githublink" target="blank" href="https://github.com/eragond/PruebaFiltros" class="nav-link btn" title="Informacion del autor" >Autor</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+           <div class="row p-2 bg-dark justify-content-center">
+                    <div class="mx-2">
+                        <label for="regHeight">Ancho de region</label>
+                        <input type="text" class="form-control region" id="regHeight" value="5" autocomplete="off" >
+                    </div>
+                    <div class="mx-2">
+                        <label for="regWidth">Alto de region</label>
+                        <input type="text" class="form-control region" id="regWidth" value="5" autocomplete="off" >
+                    </div>
+                    <div class="dropdown my-auto">
+                        <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tipo
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a id="bcirculo" class="dropdown-item tipo" style="font-family: Arial, sans-serif;">Circulos</a>
+                            <a id="b4pts" class="dropdown-item tipo" style="font-family: Arial, sans-serif;">4 puntos</a>
+                            <a id="b9pts" class="dropdown-item tipo" style="font-family: Arial, sans-serif;">9 puntos</a>
+                        </div>
+                    </div>
+                    <div id="biblioteca">
+                    </div>
+                    <div class="my-auto ml-1">
+                        <button type="button" id="grid" class="btn btn-secondary btn-sm">Procesar</button>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div id='loadingSpiner' class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+           </div>
+            <div class="row bg-dark justify-content-center">
+                <div id="poxi" class="bg-secondary m-2 p-4 text-center">
+                    <img id="imgProc" class="img-fluid" src="img/Leena.png" alt=""/>
+                </div>
+                <div id="final" class="bg-secondary m-2 p-4 text-center">
+                    <img id="imgFin" class="img-fluid" src="img/Leena.png" alt=""/>
+                </div>
+           </div>
+        </div>
+
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
+  <script type="module" src="js/semitonos.js"></script>
+</body>
+
+</html>
