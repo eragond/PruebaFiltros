@@ -54,8 +54,8 @@ export class BibliotecaPuntos extends Biblioteca {
         this.swidth = dims;
         this.sheight = dims;
         this.ntonos = puntos ** 2;
-        // this.canvas.width = this.swidth*this.ntonos;
-        // this.canvas.height = this.sheight;
+        this.canvas.width = this.swidth*this.ntonos;
+        this.canvas.height = this.sheight;
         let place = 0;
         let pptDim = this.swidth/puntos;
         //Para cada tono, se agrega un punto a su respectiva imagen.
